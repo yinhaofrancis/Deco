@@ -17,11 +17,14 @@ public enum LayoutDirection{
 public protocol LayoutItem {
     var width:DecoVolume {get}
     var height:DecoVolume {get}
-    var subItem:[LayoutItem] {get}
     var parent:LayoutItem? {get}
     func setParent(parent:LayoutItem)
     func applyFrame(frame:CGRect)
     var host:Layout? {get}
+}
+public protocol LayoutContainer:LayoutItem{
+    associatedtype Item
+    var subItem:[Item] {get}
 }
 public protocol Layout{
     func setFrame(frame:CGRect)

@@ -22,21 +22,29 @@ extension StackItem{
     }
 }
 
-public class StackLayout:StackItem{
+public class StackLayout:StackItem,LayoutContainer{
+    
+    public typealias Item = StackItem
+    
+    public var subItem: [StackItem] = []{
+        didSet{
+            self.subItem.forEach { (i) in
+                i.setParent(parent: self)
+            }
+        }
+    }
+    
+    public var parent: LayoutItem?
+    
     public func setParent(parent: LayoutItem) {
         self.parent = parent
     }
-    
-    public var subItem: [LayoutItem] = []
-    
 
     public var host: Layout?
     
     public var width: DecoVolume = DecoVolume.volume(0)
     
     public var height: DecoVolume = DecoVolume.volume(0)
-    
-    public var parent: LayoutItem?
     
     public func applyFrame(frame: CGRect) {
         self.host?.setFrame(frame: frame)
@@ -46,7 +54,7 @@ public class StackLayout:StackItem{
     
     public func layout(){
         var start:CGFloat = 0
-        for i in self.stackItem {
+        for i in self.subItem {
             switch self.direction{
             case .row:
                 i.applyFrame(frame: CGRect(x: 0, y: start, width: self.width.realValue, height: i.volume(layout: self).realValue))
@@ -57,17 +65,5 @@ public class StackLayout:StackItem{
             }
         }
     }
-    public var stackItem:[StackItem]{
-        set{
-            self.subItem = newValue
-            newValue.forEach { (i) in
-                i.setParent(parent: self)
-            }
-        }
-        get{
-            return self.subItem.filter { (i) -> Bool in
-                return i is StackItem
-            } as! [StackItem]
-        }
-    }
+
 }

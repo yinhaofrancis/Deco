@@ -37,7 +37,7 @@ class TestsLib: XCTestCase {
             PlainItem(volume: .volume(100)),
             PlainItem(volume: .volume(100)),
         ]
-        stack.stackItem = subs
+        stack.subItem = subs
         stack.layout()
         var start:CGFloat = 0
         for i in subs {
@@ -52,7 +52,7 @@ class TestsLib: XCTestCase {
             PlainItem(width: .volume(200), height: .volume(100)),
             PlainItem(width: .volume(200), height: .volume(100))
         ]
-        stack.stackItem = ns
+        stack.subItem = ns
         stack.layout()
         start = 0
         for i in ns {

@@ -15,7 +15,6 @@ public class PlainItem: StackItem {
         self.parent = parent
     }
     
-    
     public var width: DecoVolume = .volume(0)
     
     public var height: DecoVolume = .volume(0)
